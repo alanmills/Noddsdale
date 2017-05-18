@@ -5,7 +5,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
-#### Added
+#### 0.0.1
 * This CHANGELOG where I intend to capture the key changes to the project
 * README.md - purpose of the project
 * ROADMAP.md outlineing the intended roadmap for noddsdale

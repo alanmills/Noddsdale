@@ -5,7 +5,7 @@ Noddsdale is a static blog generator using [Markdown](https://daringfireball.net
 There are lots of blog engines out there including many that produce a static site from Markdown files.  Noddsdale is a learning exercise for the purpose of building such a generator myself.
 
 ### The name noddsdale
-The name noddsdale comes from Noddsdale Water, Largs, Ayrshire, Scotland.  I love kayaking, and as a child, I spent a lot of time in Largs as this my father's hometown, so I decided to reference one of the waterways of my childhood as the name for this project.
+The name noddsdale comes from Noddsdale Water, Largs, Ayrshire, Scotland.  I love kayaking, and as a child, I spent a lot of time in Largs as this is my father's hometown, so I decided to reference one of the waterways of my childhood as the name for this project.
 
 ## How to use
 Currently, noddsdale does not do anything. However, the plan as outlined in [ROADMAP.md](./ROADMAP.md) is to do the following:

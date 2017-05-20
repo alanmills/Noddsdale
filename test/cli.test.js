@@ -5,10 +5,21 @@ const assert = require('assert'),
 
 describe('CLI', () => {
     describe('CLI Input', () => {
-        const cli = require('../cli'),
-            usageMessage = 'Usage: noddsdale <command>';
+        const cli = require('../src/cli'),
+            resourceManager = require('../src/resourceManager');
+
+        const cliResource = {
+            'help': {
+                'usage': 'This is a test message for help Usage: noddsdale <command>'
+            }
+        };
 
         let writer;
+
+        before(() => {
+            resourceManager.setSource(cliResource);
+            cli.setResourceManager(resourceManager);
+        });
 
         beforeEach(() => {
             writer = new memoryStream.WritableStream();
@@ -16,22 +27,25 @@ describe('CLI', () => {
         });
 
         afterEach(() => {
+            writer.end();
             cli.outputPipe(undefined);
         });
 
         it('should return CLI usage information when no commands provided', () => {
             cli.process();
-            assert.equal(writer.toString(), usageMessage);
+            assert.equal(writer.toString(), cliResource.help.usage);
         });
 
         it('should return CLI usage information when invalid commands are provided', () => {
             cli.process('invalidCommandName');
-            assert.equal(writer.toString(), usageMessage);
+            assert.equal(writer.toString(), cliResource.help.usage);
         });
+
+        it('')
     });
 
     describe('CLI Output', () => {
-        const cliOutput = require('../cli/cliOutput.js');
+        const cliOutput = require('../src/cli/cliOutput.js');
         let consoleMock;
 
         beforeEach(() => {
@@ -65,7 +79,7 @@ describe('CLI', () => {
     });
 
     describe('CLI Routing', () => {
-        const cliRouteCommands = require('../cli/cliRouteCommands.js'),
+        const cliRouteCommands = require('../src/cli/cliRouteCommands.js'),
             commandName = 'test';
 
         beforeEach(() => {

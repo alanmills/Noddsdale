@@ -1,1 +1,1 @@
-node index.js $1
+node src/index.js $1

@@ -1,5 +1,3 @@
-const cliOutput = require('./cliOutput');
-
 let commands = [];
 
 let registerCommand = (name, fn) => {
@@ -28,15 +26,13 @@ let isRegisteredCommand = (name) => {
     });
 };
 
-let executeCommand = (name, options) => {
+let executeCommand = (name, parameters) => {
     let validCommands = commands.filter((command) => {
         return command.name === name;
     });
 
-
-
     validCommands.forEach((command) => {
-        command.fn(cliOutput.write, options);
+        command.fn(parameters);
     });
 };
 

@@ -115,6 +115,8 @@ In future version of Noddsdale, the intention is to add the following capabiliti
 * Robots.txt
 * Image support within posts hosted by noddsdale generated site
 * Validation that references are still relevant e.g. that a page linked by a post is still the same as when the page was published
+* Migrate Resources from within the resourceManager.js source code to a resource.json file
+* Automatically load in command modules when they addeded to the src/commands folder
 
 ```
 |-- posts.rss

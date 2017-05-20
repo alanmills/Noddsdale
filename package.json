@@ -1,10 +1,10 @@
 {
     "name": "noddsdale",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "A static blog generator using Markdown and Node.js",
     "main": "index.js",
     "scripts": {
-        "test": "mocha",
+        "test": "nyc mocha && eslint src",
         "build": "chmod +x ./noddsdale.sh"
     },
     "repository": {
@@ -22,9 +22,17 @@
         "url": "https://github.com/alanmills/noddsdale/issues"
     },
     "homepage": "https://github.com/alanmills/noddsdale#readme",
+    "nyc": {
+        "reporter": [
+            "lcov",
+            "text"
+        ]
+    },
     "devDependencies": {
+        "eslint": "3.19.0",
         "memory-streams": "0.1.2",
         "mocha": "3.4.1",
+        "nyc": "10.3.2",
         "sinon": "2.2.0"
     }
 }

@@ -1,1 +1,0 @@
-exports.help = (output, options) => { output('Usage: noddsdale <command>'); };

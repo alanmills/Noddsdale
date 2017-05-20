@@ -3,6 +3,7 @@ const cliInput = require('./cliInput.js'),
     cliOutput = require('./cliOutput');
 
 module.exports = {
+    setResourceManager: cliInput.setResourceManager,
     outputPipe: cliOutput.outputPipe,
     registerCommand: cliRouteCommands.registerCommand,
     process: cliInput.process

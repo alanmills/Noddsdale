@@ -1,2 +1,6 @@
 const cli = require('./cli');
-cli.process();
+
+let command = process.argv[2],
+    parameters = process.argv.slice(3);
+
+cli.execute(command, parameters);

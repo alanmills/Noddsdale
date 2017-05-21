@@ -8,7 +8,7 @@ let registerCommand = (resourceManager, userOutput) => {
     return command;
 };
 
-let process = (parameters) => {
+let execute = (parameters) => {
     try {
         if (parameters === undefined) {
             output.write(resources.getString(command, 'usage'));
@@ -17,17 +17,12 @@ let process = (parameters) => {
         }
         return true;
     } catch (err) {
-        output.write(unknownCommandErrorMessage(parameters));
+        output.write(resources.getString('help', 'errorUnknownCommand', /\$\(command\)/i, parameters));
         return false;
     }
 };
 
-let unknownCommandErrorMessage = (parameters) => {
-    let errorMessage = resources.getString('help', 'errorUnknownCommand');
-    return errorMessage.replace(/\$\(command\)/i, parameters);
-};
-
 module.exports = {
     registerCommand: registerCommand,
-    process: process
+    execute: execute
 };

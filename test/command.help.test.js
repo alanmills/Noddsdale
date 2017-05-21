@@ -32,14 +32,14 @@ describe('Command: Help:', () => {
     });
 
     it('Should output "usage" message when called with "usage"', () => {
-        let processSuccessfully = help.process('usage');
-        assert.equal(processSuccessfully, true);
+        let executeSuccessfully = help.execute('usage');
+        assert.equal(executeSuccessfully, true);
         assert.equal(output.toString(), resource.help.usage);
     });
 
     it('Should output unknown command error message when called with an unknown command name', () => {
-        let processSuccessfully = help.process('unknowncommand');
-        assert.equal(processSuccessfully, false);
+        let executeSuccessfully = help.execute('unknowncommand');
+        assert.equal(executeSuccessfully, false);
         assert.equal(output.toString(), resource.help.errorUnknownCommand);
     });
 });

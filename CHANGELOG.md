@@ -6,11 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased] [0.0.4]
 #### Added
+- Added the init command which prepars the current folder for a new blog
 - Added an integration test for Noddsdale `test/noddsdale.test.js`
+- Resource Manager now has the ability to format string with substitutions powered with regular expresssion substitution
 
 #### Changed
 - Moved the Resource Manager user interface output strings into the seperate file `src/resourceManager/resourceMessages.js`
 - CLI and Help Command Module to pass through parameters associated with the `help` command to allow outputting different messages depending on the CLI input.
+- Change the Help unknown command text substitution to use the version provided by the Resource Manager.
 
 ## [0.0.3] - 2017-05-21
 #### Added

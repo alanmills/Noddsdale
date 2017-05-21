@@ -1,8 +1,10 @@
 const routeCommands = require('./cliRouteCommands.js'),
     cliOutput = require('./cliOutput'),
-    help = require('../commands/help');
+    help = require('../commands/help'),
+    init = require('../commands/init');
 
-let resourceManager = require('../resourceManager');
+let resourceManager = require('../resourceManager'),
+    fs = require('fs');
 
 let setResourceManager = (manager) => {
     if (manager === undefined) {
@@ -14,51 +16,52 @@ let setResourceManager = (manager) => {
 
 
 let registerCommands = () => {
-    routeCommands.registerCommand(help.registerCommand(resourceManager, cliOutput), help.process);
+    routeCommands.registerCommand(help.registerCommand(resourceManager, cliOutput), help.execute);
+    routeCommands.registerCommand(init.registerCommand(resourceManager, cliOutput, fs), init.execute);
 };
 
-let process = (params) => {
+let execute = (params) => {
     registerCommands();
 
-    let processCommand = processParams(params);
-    if (routeCommands.isRegisteredCommand(processCommand.command)) {
-        routeCommands.executeCommand(processCommand.command, processCommand.options);
+    let executeCommand = executeParams(params);
+    if (routeCommands.isRegisteredCommand(executeCommand.command)) {
+        routeCommands.executeCommand(executeCommand.command, executeCommand.options);
     } else {
-        routeCommands.executeCommand('help', processCommand.command);
+        routeCommands.executeCommand('help', executeCommand.command);
     }
 };
 
-let processParams = (params) => {
+let executeParams = (params) => {
     let paramsResult;
     switch (typeof params) {
         case 'undefined':
-            paramsResult = processUndefinedParams();
+            paramsResult = executeUndefinedParams();
             break;
         case 'string':
-            paramsResult = processStringParams(params);
+            paramsResult = executeStringParams(params);
             break;
         default:
-            paramsResult = processArrayParams(params);
+            paramsResult = executeArrayParams(params);
             break;
     }
     return paramsResult;
 };
 
-let processUndefinedParams = () => {
+let executeUndefinedParams = () => {
     return {
         command: 'help',
         options: 'usage'
     };
 }
 
-let processStringParams = (params) => {
+let executeStringParams = (params) => {
     return {
         command: params,
         options: undefined
     };
 };
 
-let processArrayParams = (params) => {
+let executeArrayParams = (params) => {
     return {
         command: params[0],
         options: params.shift()
@@ -67,5 +70,5 @@ let processArrayParams = (params) => {
 
 module.exports = {
     setResourceManager: setResourceManager,
-    process: process
+    execute: execute
 };

@@ -6,5 +6,5 @@ module.exports = {
     setResourceManager: cliInput.setResourceManager,
     outputPipe: cliOutput.outputPipe,
     registerCommand: cliRouteCommands.registerCommand,
-    process: cliInput.process
+    execute: cliInput.execute
 };

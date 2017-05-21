@@ -8,12 +8,27 @@ let setSource = (source) => {
     }
 };
 
-let getString = (commandModule, resource) => {
+let getString = (commandModule, resource, ...format) => {
     let commandModuleResources = getResourceNode(resources, commandModule),
         resourceName = getResourceName(resource),
         commandModuleResource = getResourceNode(commandModuleResources, resourceName);
 
-    return commandModuleResource;
+    return formatString(commandModuleResource, format);
+};
+
+let formatString = (commandModuleResource, ...format) => {
+    let formattedString = commandModuleResource,
+        formatters = format[0];
+
+    if (formatters.length > 0) {
+        for (let index = 0; index < formatters.length; index += 2) {
+            let regex = formatters[index],
+                substitution = formatters[index + 1];
+
+            formattedString = formattedString.replace(regex, substitution);
+        }
+    }
+    return formattedString;
 };
 
 let getResourceName = (resource) => {

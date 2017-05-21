@@ -39,7 +39,7 @@ describe('CLI:', () => {
         });
 
         it('Should return CLI usage information when no commands provided', () => {
-            cli.process();
+            cli.execute();
             assert.equal(output.toString(), cliResource.help.usage);
         });
 
@@ -48,18 +48,18 @@ describe('CLI:', () => {
                 errorMessage = cliResource.help.errorUnknownCommand,
                 expectedResult = errorMessage.replace(/\$\(command\)/i, commandName);
 
-            cli.process(commandName);
+            cli.execute(commandName);
 
             assert.equal(output.toString(), expectedResult);
         });
 
         it('Should return CLI help information when help commands is called', () => {
-            cli.process('help');
+            cli.execute('help');
             assert.equal(output.toString(), cliResource.help.usage);
         });
 
         it('Should return Command Module Help when help <command> is called', () => {
-            cli.process(['help', 'commandModule']);
+            cli.execute(['help', 'commandModule']);
         });
     });
 

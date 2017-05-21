@@ -47,13 +47,11 @@ As part of this first release there are no command line options, all of the conf
 |-- posts
 |   |-- <<todays date>>-welcome-to-noddsdale.md
 |
-|-- static
-|   |-- privacy-and-cookies.md
-|   |-- robots.txt
-|
 |-- images
-|   |-- favicon.ico
+|   |-- favicon.ico    
 ```
+
+
 
 #### config.yml
 ``` yml

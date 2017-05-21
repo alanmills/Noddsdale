@@ -17,17 +17,17 @@ const mycommand = require('../src/commands/mycommand'),
 
 const resource = {
     "mycommand": {
-        "help": "help from mycommand",
-        "start processing": "mycommand is processing",
-        "finish processing": "mycommand has finished"
+        "start": "mycommand is processing",
+        "finish": "mycommand has finished"
     },
     "help": {
-        "error": "there is an error $(err)"
+        "error": "there is an error $(err)",
+        "mycommand": "help from mycommand"
     }
 };
 
-describe('Command: My Command:', () => {
-    let ouput;
+describe('My Command:', () => {
+    let output;
 
     beforeEach(() => {
         resourceManager.setSource(resource);
@@ -36,14 +36,15 @@ describe('Command: My Command:', () => {
     });
 
     afterEach(() => {
+        mycommand.registerCommand(undefined, undefined, undefined);
         output.end();
-        mycommand.registerCommand(undefined, undefined);
+        resourceManager.setSource(undefined);
     });
 
     it('Should do something useful', ()=> {
         // Arrange
         // Act
-        let processSuccessfully = mycommand.process(/* any relevant arguments */);
+        let processSuccessfully = mycommand.execute(/* any relevant arguments */);
         // Assert
         assert.equal(processSuccessfully, true/false); // Depending on if we are expecting the processing to succed or fail
     });
@@ -57,7 +58,7 @@ const mycommand = require('./mymodule.js');
 
 module.exports = {
     registerCommand: mycommand.registerCommand,
-    process: mycommand.process
+    execute: mycommand.execute
 };
 ```
 
@@ -75,14 +76,14 @@ let registerCommand = (resourceManager, userOutput) => {
     return command;
 };
 
-let process = (parameters) => {
-    output(resources.getString(command, 'start processing'));
+let execute = (parameters) => {
+    output(resources.getString(command, 'start'));
     try {
         // Place your module logic here that you want to be executed when the users runs noddsdale mymodule
-        output(resources.getString(command, 'finish processing'));
+        output.write(resources.getString(command, 'finish'));
         return true;
     } catch (err) {
-        output(resources.getString('help', 'error', err));
+        output.write(resources.getString('help', 'error', err));
         return false;
     }
 };
@@ -96,3 +97,10 @@ module.exports = {
 ## Register the module in the CLI
 1. Create a requires reference
 2. Call the modules register method in the `registerCommands()` function
+
+## Add User Output Strings to Resource Manager
+
+## Add an integration test
+
+## Run the command from the Terminal
+`./noddsdale mycommand`

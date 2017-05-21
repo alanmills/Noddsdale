@@ -15,10 +15,8 @@ Currently, noddsdale does not do anything. However, the plan as outlined in [ROA
 3. Generate the blog `noddsdale build`.
 4. Host the blog locally `noddsdale host`.
 
-## Building noddsdale
-1. Clone the [noddsdale Github](https://github.com/alanmills/noddsdale.git) repo
-2. Using Terminal navigate to the noddsdale directory
-3. **NOTE: Steps to be determined.**
+## Developer Guide
+For information on developing Noddsdale, refere to the [Developer Guide](./docs/developer-guide/README.md)
 
 ## Depenencies
 I am thankful of the hard work done by others in the community.  In particular noddsdale makes use of:

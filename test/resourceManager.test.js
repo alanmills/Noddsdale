@@ -9,10 +9,14 @@ const testSource = {
     }
 };
 
-describe('Resource Manager', () => {
-    describe('Get Resource String', () => {
+describe('Resource Manager:', () => {
+    describe('Get Resource String:', () => {
         before(() => {
             resourceManager.setSource(testSource);
+        });
+
+        after(() => {
+            resourceManager.setSource(undefined);
         });
 
         it('Get testModule, firstResource string', () => {
@@ -36,9 +40,8 @@ describe('Resource Manager', () => {
         });
     });
 
-    describe('Resource Source', () => {
+    describe('Resource Source:', () => {
         it('Should return undefined if getting a resource string from an undefined source', () => {
-            resourceManager.setSource(undefined);
             assert.equal(resourceManager.getString('testModule', 'firstResource'), undefined);
         });
     });

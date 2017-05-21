@@ -57,7 +57,7 @@
             "error",
             "last"
         ],
-        "complexity": "error",
+        "complexity": ["error", 3],
         "computed-property-spacing": [
             "error",
             "never"
@@ -86,7 +86,7 @@
         "id-blacklist": "error",
         "id-length": "error",
         "id-match": "error",
-        "indent": "error",
+        "indent": ["error", 4, { "SwitchCase": 1 }],
         "init-declarations": "off",
         "jsx-quotes": "error",
         "key-spacing": "error",

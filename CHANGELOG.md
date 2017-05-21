@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased] [0.0.4]
+#### Added
+- Added an integration test for Noddsdale `test/noddsdale.test.js`
+
+#### Changed
+- Moved the Resource Manager user interface output strings into the seperate file `src/resourceManager/resourceMessages.js`
+- CLI and Help Command Module to pass through parameters associated with the `help` command to allow outputting different messages depending on the CLI input.
+
 ## [0.0.3] - 2017-05-21
 #### Added
 - Added a Developer Guide with information on the CLI Pipeline, Command Module Interface Design and a guide on how to add a new Command Module

@@ -26,7 +26,7 @@ const resource = {
     }
 };
 
-describe('Command: My Command', () => {
+describe('Command: My Command:', () => {
     let ouput;
 
     beforeEach(() => {
@@ -35,8 +35,9 @@ describe('Command: My Command', () => {
         mycommand.registerCommand(resourceManager, output);
     });
 
-    afterEach(() ={
+    afterEach(() => {
         output.end();
+        mycommand.registerCommand(undefined, undefined);
     });
 
     it('Should do something useful', ()=> {
@@ -46,7 +47,7 @@ describe('Command: My Command', () => {
         // Assert
         assert.equal(processSuccessfully, true/false); // Depending on if we are expecting the processing to succed or fail
     });
-};
+});
 ```
 
 ## index.js

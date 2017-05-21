@@ -11,7 +11,7 @@ const resource = {
     }
 };
 
-describe('Command: Help', () => {
+describe('Command: Help:', () => {
     let output;
 
     beforeEach(() => {
@@ -21,7 +21,9 @@ describe('Command: Help', () => {
     });
 
     afterEach(() => {
+        help.registerCommand(undefined, undefined);
         output.end();
+        resourceManager.setSource(undefined);
     });
 
     it('Should return "help" when registering the command', () => {

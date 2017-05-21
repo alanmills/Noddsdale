@@ -10,7 +10,11 @@ let registerCommand = (resourceManager, userOutput) => {
 
 let process = (parameters) => {
     try {
-        output.write(resources.getString(command, parameters));
+        if (parameters === undefined) {
+            output.write(resources.getString(command, 'usage'));
+        } else {
+            output.write(resources.getString(command, parameters));
+        }
         return true;
     } catch (err) {
         output.write(unknownCommandErrorMessage(parameters));
@@ -20,7 +24,7 @@ let process = (parameters) => {
 
 let unknownCommandErrorMessage = (parameters) => {
     let errorMessage = resources.getString('help', 'errorUnknownCommand');
-    return errorMessage.replace(/$(command)/i, parameters);
+    return errorMessage.replace(/\$\(command\)/i, parameters);
 };
 
 module.exports = {

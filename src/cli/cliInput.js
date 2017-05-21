@@ -5,7 +5,11 @@ const routeCommands = require('./cliRouteCommands.js'),
 let resourceManager = require('../resourceManager');
 
 let setResourceManager = (manager) => {
-    resourceManager = manager;
+    if (manager === undefined) {
+        resourceManager = require('../resourceManager');
+    } else {
+        resourceManager = manager;
+    }
 };
 
 
@@ -17,13 +21,47 @@ let process = (params) => {
     registerCommands();
 
     let processCommand = processParams(params);
-    routeCommands.executeCommand(processCommand.command, processCommand.options);
+    if (routeCommands.isRegisteredCommand(processCommand.command)) {
+        routeCommands.executeCommand(processCommand.command, processCommand.options);
+    } else {
+        routeCommands.executeCommand('help', processCommand.command);
+    }
 };
 
-let processParams = () => {
+let processParams = (params) => {
+    let paramsResult;
+    switch (typeof params) {
+        case 'undefined':
+            paramsResult = processUndefinedParams();
+            break;
+        case 'string':
+            paramsResult = processStringParams(params);
+            break;
+        default:
+            paramsResult = processArrayParams(params);
+            break;
+    }
+    return paramsResult;
+};
+
+let processUndefinedParams = () => {
     return {
         command: 'help',
-        options: ['usage']
+        options: 'usage'
+    };
+}
+
+let processStringParams = (params) => {
+    return {
+        command: params,
+        options: undefined
+    };
+};
+
+let processArrayParams = (params) => {
+    return {
+        command: params[0],
+        options: params.shift()
     };
 };
 

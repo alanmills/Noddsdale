@@ -3,18 +3,20 @@ const assert = require('assert'),
     memoryStream = require('memory-streams');
 
 
-describe('CLI', () => {
-    describe('CLI Input', () => {
+describe('CLI:', () => {
+    describe('CLI Input:', () => {
         const cli = require('../src/cli'),
             resourceManager = require('../src/resourceManager');
 
         const cliResource = {
             'help': {
-                'usage': 'This is a test message for help Usage: noddsdale <command>'
+                'usage': 'This is a test message for help Usage: noddsdale <command>',
+                "errorUnknownCommand": "Unknown command: $(command) error message",
+                "commandModule": "Help message for commandModule"
             }
         };
 
-        let writer;
+        let output;
 
         before(() => {
             resourceManager.setSource(cliResource);
@@ -22,29 +24,46 @@ describe('CLI', () => {
         });
 
         beforeEach(() => {
-            writer = new memoryStream.WritableStream();
-            cli.outputPipe(writer);
+            output = new memoryStream.WritableStream();
+            cli.outputPipe(output);
         });
 
         afterEach(() => {
-            writer.end();
+            output.end();
             cli.outputPipe(undefined);
         });
 
-        it('should return CLI usage information when no commands provided', () => {
+        after(() => {
+            resourceManager.setSource(undefined);
+            cli.setResourceManager(undefined);
+        });
+
+        it('Should return CLI usage information when no commands provided', () => {
             cli.process();
-            assert.equal(writer.toString(), cliResource.help.usage);
+            assert.equal(output.toString(), cliResource.help.usage);
         });
 
-        it('should return CLI usage information when invalid commands are provided', () => {
-            cli.process('invalidCommandName');
-            assert.equal(writer.toString(), cliResource.help.usage);
+        it('Should return CLI Unknown Command Error Message when invalid commands are provided', () => {
+            let commandName = 'invalidCommandName',
+                errorMessage = cliResource.help.errorUnknownCommand,
+                expectedResult = errorMessage.replace(/\$\(command\)/i, commandName);
+
+            cli.process(commandName);
+
+            assert.equal(output.toString(), expectedResult);
         });
 
-        it('')
+        it('Should return CLI help information when help commands is called', () => {
+            cli.process('help');
+            assert.equal(output.toString(), cliResource.help.usage);
+        });
+
+        it('Should return Command Module Help when help <command> is called', () => {
+            cli.process(['help', 'commandModule']);
+        });
     });
 
-    describe('CLI Output', () => {
+    describe('CLI Output:', () => {
         const cliOutput = require('../src/cli/cliOutput.js');
         let consoleMock;
 
@@ -78,7 +97,7 @@ describe('CLI', () => {
         });
     });
 
-    describe('CLI Routing', () => {
+    describe('CLI Routing:', () => {
         const cliRouteCommands = require('../src/cli/cliRouteCommands.js'),
             commandName = 'test';
 

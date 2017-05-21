@@ -1,29 +1,36 @@
-let resources = {
-    "help": {
-        "usage": "Usage: noddsdale <command>",
-        "errorUnknownCommand": "Unknown command: $(command)",
-        "init": "Usage: noddsdale init/n noddsdale-int purpose is to prepere the current directory for a new noddsdale blog"
-    }
-};
+let resources = require('./resourceMessages.js');
 
 let setSource = (source) => {
-    resources = source;
+    if (source === undefined) {
+        resources = require('./resourceMessages.js');
+    } else {
+        resources = source;
+    }
 };
 
-let getString = (module, resource) => {
-    let resourceName;
-    if (resources !== undefined) {
-        if (resources[module] !== undefined) {
-            // eslint-disable-next-line prefer-reflect
-            if (Object.getPrototypeOf(resource) === Array.prototype) {
-                resourceName = resource[0];
-            } else {
-                resourceName = resource;
-            }
-            return resources[module][resourceName];
-        }
+let getString = (commandModule, resource) => {
+    let commandModuleResources = getResourceNode(resources, commandModule),
+        resourceName = getResourceName(resource),
+        commandModuleResource = getResourceNode(commandModuleResources, resourceName);
+
+    return commandModuleResource;
+};
+
+let getResourceName = (resource) => {
+    // eslint-disable-next-line prefer-reflect
+    if (Object.getPrototypeOf(resource) === Array.prototype) {
+        return resource[0];
+    } else {
+        return resource;
     }
-    return undefined;
+};
+
+let getResourceNode = (resource, nodeName) => {
+    if (resource !== undefined && nodeName !== undefined) {
+        return resource[nodeName];
+    } else {
+        return undefined;
+    }
 };
 
 module.exports = {
